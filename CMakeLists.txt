@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.18.0)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 project(cppBigInteger)
 
-set srcfiles_raw(
+set (srcfiles_raw
 
 )
 
@@ -12,7 +11,7 @@ foreach(target_srcfile IN LISTS srcfiles_raw)
     set(srcfiles ${srcfiles} "${CMAKE_CURRENT_SOURCE_DIR/src/${target_srcfile}.cpp}")
 endforeach(target_srcfile IN LISTS srcfiles_raw)
 
-set libfiles_raw(
+set (libfiles_raw
 
 )
 
@@ -22,8 +21,9 @@ foreach(target_libfile IN LISTS libfiles_raw)
 endforeach(target_libfile IN LISTS libfiles_raw)
 
 add_library(BigIntegerLib STATIC ${libfiles})
-target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
 # Testing using static lib
 add_executable(${PROJECT_NAME} test.cpp)
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PROJECT_NAME} BigIntegerLib)
